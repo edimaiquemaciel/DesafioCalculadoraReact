@@ -5,21 +5,15 @@ Uma calculadora web simples e elegante construída com React e Sass. Este projet
 ## 📸 Screenshots
 
 ### Desktop
-![Desktop View](/screenshots/desktop.png)
-*Visualização da calculadora em desktop - Interface principal com todos os controles visíveis*
+<p align="center">
+  <img src="src/assets/Desktop.jpeg" alt="Desktop View">
+</p>
 
 ### Mobile
-![Mobile View](/screenshots/mobile.png)
-*Visualização da calculadora em dispositivos móveis - Layout responsivo adaptado*
 
-### Exemplos de Operações
-![Operation Example](/screenshots/operation.png)
-*Exemplo de uma operação sendo realizada na calculadora*
-
-> Nota: Para adicionar as screenshots ao seu repositório:
-> 1. Crie uma pasta `screenshots` na raiz do projeto
-> 2. Adicione suas imagens nesta pasta
-> 3. Atualize os caminhos das imagens acima para corresponder aos seus arquivos
+<p align="center">
+  <img src="src/assets/Mobile.jpeg" alt="Mobile View" width="30%">
+</p>
 
 ## 📋 Funcionalidades
 
@@ -107,7 +101,7 @@ O projeto utiliza Sass para estilização, oferecendo:
 
 1. Clone o repositório
 ```bash
-git clone [url-do-seu-repositório]
+git clone https://github.com/edimaiquemaciel/DesafioCalculadoraReact.git
 ```
 
 2. Instale as dependências
@@ -126,10 +120,6 @@ npm run dev
 - A calculadora lida apenas com operações aritméticas básicas
 - Os resultados são formatados automaticamente com 2 casas decimais
 - A interface foi projetada para ser intuitiva e fácil de usar
-
-## 🤝 Contribuição
-
-Contribuições, issues e solicitações de features são bem-vindas! Fique à vontade para verificar a [página de issues](#).
 
 ## 📄 Licença
 
