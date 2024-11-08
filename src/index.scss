@@ -98,6 +98,12 @@ input::-webkit-outer-spin-button {
     padding: 10px;
     font-family: "Orbitron", sans-serif;
   }
+
+  .resultado-input-erro{
+    width: 100% !important;
+    font-size: 15px !important;
+    color: rgb(197, 26, 26) !important;
+  }
 }
 
 button {
@@ -113,14 +119,15 @@ button {
   transition: transform 0.2s, box-shadow 0.2s; 
   transition: background-color 0.3s, transform 0.3s;
 }
-button:hover {
+.btn-hover:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   background-color: $primary-color;
   transform: translateY(-2px);
 }
-button:focus,
-button:focus-visible {
+
+.btn-hover:focus,
+.btn-hover:focus-visible {
   outline: none;
   box-shadow: 0 0 10px $primary-color;
 }
@@ -130,6 +137,3 @@ span{
   font-size: 25px;
   color: $primary-color;
 }
-
-
-

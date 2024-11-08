@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPlus, FaMinus, FaTimes, FaDivide, FaEquals } from 'react-icons/fa';
 import { FaC } from "react-icons/fa6";
 
@@ -9,74 +9,107 @@ function App() {
   const [operador, setOperador] = useState('');
   const [resultado, setResultado] = useState(0);
   const [visible, setVisible] = useState("hidden");
+  const resultadoInput = document.getElementById("resultado");
+  const todosBotoes = document.querySelectorAll("button");
+
+  useEffect(()=>{
+    if(primeiroValor !== '' && segundoValor !== ''){
+      todosBotoes.forEach(botao => {
+        botao.disabled = false;
+        botao.classList.add('btn-hover');
+      });
+    }else{
+      todosBotoes.forEach((botao, index)=> {
+        botao.disabled = true;
+        botao.classList.remove('btn-hover');
+        if(index === todosBotoes.length - 1 && (primeiroValor !== '' || segundoValor !== '')){
+          botao.disabled = false;
+          botao.classList.add('btn-hover');
+        }else{
+          botao.disabled = true;
+          botao.classList.remove('btn-hover');
+        }
+      });
+    }
+  },[primeiroValor,segundoValor])
 
   const soma = () => {
-    if(primeiroValor  && segundoValor){
+    if(primeiroValor !== '' && segundoValor !== ''){
       setResultado(primeiroValor + segundoValor);
       setOperador(<FaPlus />);
       setVisible("visible");
+      resultadoInput.classList.remove("resultado-input-erro");
     }
     };
 
   const subtracao = () => {
-    if(primeiroValor  && segundoValor){
+    if(primeiroValor !== '' && segundoValor !== ''){
       setResultado(primeiroValor - segundoValor);
       setOperador(<FaMinus />);
       setVisible("visible");
+      resultadoInput.classList.remove("resultado-input-erro");
     }
     };
 
   const multiplicacao = () => {
-    if(primeiroValor  && segundoValor){
+    if(primeiroValor !== '' && segundoValor !== ''){
       setResultado(primeiroValor * segundoValor);
       setOperador(<FaTimes />);
       setVisible("visible");
+      resultadoInput.classList.remove("resultado-input-erro");
     }
     };
 
   const divisao = () => {
-    if(primeiroValor  && segundoValor){
-      setResultado(primeiroValor / segundoValor);
-      setOperador(<FaDivide />);
-      setVisible("visible");
-    }
+    if(primeiroValor !== '' && segundoValor !== ''){
+        setResultado(primeiroValor / segundoValor);
+        setOperador(<FaDivide />);
+        setVisible("visible");
+        if(segundoValor == 0) {
+          setResultado('Não é possível dividir por zero.');
+          resultadoInput.classList.add("resultado-input-erro");
+        }
+      }
     };
 
   const limpar = () =>{
-    if(primeiroValor || segundoValor || resultado )
-    setResultado(0);
-    setPrimeiroValor("");
-    setSegundoValor("");
-    setOperador("");
-    setVisible("hidden");
+    if(primeiroValor || segundoValor || resultado ){
+      setResultado(0);
+      setPrimeiroValor("");
+      setSegundoValor("");
+      setOperador("");
+      setVisible("hidden");
+      if(resultadoInput.classList.contains('resultado-input-erro')){
+        resultadoInput.classList.remove("resultado-input-erro");
+      }
+    }  
   }
 
   return (
     <main>
       <h1>CalculaNaWeb</h1>
       <section className='input-section'>
-        <input type="number" placeholder='Digite um número' value={primeiroValor} onChange={(event) => {
+        <input id='primeiro' type="number" placeholder='Digite um número' value={primeiroValor} onChange={(event) => {
           setPrimeiroValor(Number(event.target.value));
           }}/>
 
         <div><span style={{visibility: visible}}>{operador}</span></div>
 
         <input type="number" placeholder='Digite um número' value={segundoValor} onChange={(event) => setSegundoValor(Number(event.target.value))}/>
-
       </section>
 
       <div><span><FaEquals /></span></div>
       
       <section className='resultado-section'>
-        <input type="text" readOnly value={resultado ? resultado.toFixed(2) : resultado} />
+        <input id='resultado' type="text" readOnly value={resultado} />
       </section>
 
       <section className='btn-section'>
-        <button onClick={soma}><FaPlus /></button>
-        <button onClick={subtracao}><FaMinus /></button>
-        <button onClick={multiplicacao}><FaTimes /></button>
-        <button onClick={divisao}><FaDivide /></button>
-        <button onClick={limpar}><FaC /></button>
+        <button className='btn' onClick={soma}><FaPlus /></button>
+        <button className='btn' onClick={subtracao}><FaMinus /></button>
+        <button className='btn' onClick={multiplicacao}><FaTimes /></button>
+        <button className='btn' onClick={divisao}><FaDivide /></button>
+        <button className='btn' onClick={limpar}><FaC /></button>
       </section>
       
   </main>
