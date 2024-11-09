@@ -17,21 +17,22 @@ function App() {
       todosBotoes.forEach(botao => {
         botao.disabled = false;
         botao.classList.add('btn-hover');
+        botao.classList.remove('teste');
       });
     }else{
       todosBotoes.forEach((botao, index)=> {
         botao.disabled = true;
         botao.classList.remove('btn-hover');
+        botao.classList.add('teste');
         if(index === todosBotoes.length - 1 && (primeiroValor !== '' || segundoValor !== '')){
           botao.disabled = false;
           botao.classList.add('btn-hover');
-        }else{
-          botao.disabled = true;
-          botao.classList.remove('btn-hover');
+          botao.classList.remove('teste');
         }
       });
     }
-  },[primeiroValor,segundoValor])
+  },[primeiroValor,segundoValor]);
+
 
   const soma = () => {
     if(primeiroValor !== '' && segundoValor !== ''){
@@ -68,12 +69,14 @@ function App() {
         if(segundoValor == 0) {
           setResultado('Não é possível dividir por zero.');
           resultadoInput.classList.add("resultado-input-erro");
+        }else{
+          resultadoInput.classList.remove("resultado-input-erro");
         }
       }
     };
 
   const limpar = () =>{
-    if(primeiroValor || segundoValor || resultado ){
+    if(primeiroValor !== '' || segundoValor !== '' || resultado ){
       setResultado(0);
       setPrimeiroValor("");
       setSegundoValor("");
@@ -85,23 +88,43 @@ function App() {
     }  
   }
 
+
+  const onChangePrimeiro = (event) => {
+    const valor = event.target.value;
+      if (valor === 0 || valor === '') {
+          setPrimeiroValor('');
+      } else {
+          setPrimeiroValor(Number(valor));
+      }
+  }
+
+  const onChangeSegundo = (event) => {
+    const valor = event.target.value;
+      if (valor === 0 || valor === '') {
+          setSegundoValor('');
+      } else {
+          setSegundoValor(Number(valor));
+      }
+  }
+
+
+
   return (
     <main>
+
       <h1>CalculaNaWeb</h1>
       <section className='input-section'>
-        <input id='primeiro' type="number" placeholder='Digite um número' value={primeiroValor} onChange={(event) => {
-          setPrimeiroValor(Number(event.target.value));
-          }}/>
+        <input type="number" placeholder='Digite um número' value={primeiroValor} onChange={onChangePrimeiro}/>
 
         <div><span style={{visibility: visible}}>{operador}</span></div>
 
-        <input type="number" placeholder='Digite um número' value={segundoValor} onChange={(event) => setSegundoValor(Number(event.target.value))}/>
+        <input type="number" placeholder='Digite um número' value={segundoValor} onChange={onChangeSegundo}/>
       </section>
 
       <div><span><FaEquals /></span></div>
       
       <section className='resultado-section'>
-        <input id='resultado' type="text" readOnly value={resultado} />
+        <input id='resultado' type="text" readOnly value={Number(resultado) ? Number.isInteger(resultado) ? Number(resultado): resultado.toFixed(2) : resultado } />
       </section>
 
       <section className='btn-section'>
