@@ -6,13 +6,13 @@ Uma calculadora web simples e elegante construída com React e Sass. Este projet
 
 ### Desktop
 <p align="center">
-  <img src="src/assets/Desktop.jpeg" alt="Desktop View">
+  <img src="src/assets/Desktop.png" alt="Desktop View">
 </p>
 
 ### Mobile
 
 <p align="center">
-  <img src="src/assets/Mobile.jpeg" alt="Mobile View" width="30%">
+  <img src="src/assets/Mobile.png" alt="Mobile View" width="30%">
 </p>
 
 ## 📋 Funcionalidades
