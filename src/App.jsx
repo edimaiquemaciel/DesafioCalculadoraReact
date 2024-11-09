@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaPlus, FaMinus, FaTimes, FaDivide, FaEquals } from 'react-icons/fa';
 import { FaC } from "react-icons/fa6";
 
@@ -10,32 +10,14 @@ function App() {
   const [resultado, setResultado] = useState(0);
   const [visible, setVisible] = useState("hidden");
   const resultadoInput = document.getElementById("resultado");
-  const todosBotoes = document.querySelectorAll("button");
 
-  useEffect(()=>{
-    if(primeiroValor !== '' && segundoValor !== ''){
-      todosBotoes.forEach(botao => {
-        botao.disabled = false;
-        botao.classList.add('btn-hover');
-        botao.classList.remove('teste');
-      });
-    }else{
-      todosBotoes.forEach((botao, index)=> {
-        botao.disabled = true;
-        botao.classList.remove('btn-hover');
-        botao.classList.add('teste');
-        if(index === todosBotoes.length - 1 && (primeiroValor !== '' || segundoValor !== '')){
-          botao.disabled = false;
-          botao.classList.add('btn-hover');
-          botao.classList.remove('teste');
-        }
-      });
-    }
-  },[primeiroValor,segundoValor]);
+  const botaoDesabilitado = primeiroValor === '' || segundoValor === '';
+  const botaoLimparDesabilitado = primeiroValor === '' && segundoValor === '';
+  const habilitaFuncao = primeiroValor !== '' && segundoValor !== '';
 
 
   const soma = () => {
-    if(primeiroValor !== '' && segundoValor !== ''){
+    if(habilitaFuncao){
       setResultado(primeiroValor + segundoValor);
       setOperador(<FaPlus />);
       setVisible("visible");
@@ -44,7 +26,7 @@ function App() {
     };
 
   const subtracao = () => {
-    if(primeiroValor !== '' && segundoValor !== ''){
+    if(habilitaFuncao){
       setResultado(primeiroValor - segundoValor);
       setOperador(<FaMinus />);
       setVisible("visible");
@@ -53,7 +35,7 @@ function App() {
     };
 
   const multiplicacao = () => {
-    if(primeiroValor !== '' && segundoValor !== ''){
+    if(habilitaFuncao){
       setResultado(primeiroValor * segundoValor);
       setOperador(<FaTimes />);
       setVisible("visible");
@@ -62,7 +44,7 @@ function App() {
     };
 
   const divisao = () => {
-    if(primeiroValor !== '' && segundoValor !== ''){
+    if(habilitaFuncao){
         setResultado(primeiroValor / segundoValor);
         setOperador(<FaDivide />);
         setVisible("visible");
@@ -76,7 +58,7 @@ function App() {
     };
 
   const limpar = () =>{
-    if(primeiroValor !== '' || segundoValor !== '' || resultado ){
+    if(habilitaFuncao || resultado ){
       setResultado(0);
       setPrimeiroValor("");
       setSegundoValor("");
@@ -114,7 +96,7 @@ function App() {
 
       <h1>CalculaNaWeb</h1>
       <section className='input-section'>
-        <input type="number" placeholder='Digite um número' value={primeiroValor} onChange={onChangePrimeiro}/>
+        <input id='primeiro' type="number" placeholder='Digite um número' value={primeiroValor} onChange={onChangePrimeiro}/>
 
         <div><span style={{visibility: visible}}>{operador}</span></div>
 
@@ -128,11 +110,11 @@ function App() {
       </section>
 
       <section className='btn-section'>
-        <button className='btn' onClick={soma}><FaPlus /></button>
-        <button className='btn' onClick={subtracao}><FaMinus /></button>
-        <button className='btn' onClick={multiplicacao}><FaTimes /></button>
-        <button className='btn' onClick={divisao}><FaDivide /></button>
-        <button className='btn' onClick={limpar}><FaC /></button>
+        <button disabled={botaoDesabilitado} onClick={soma}><FaPlus /></button>
+        <button disabled={botaoDesabilitado} onClick={subtracao}><FaMinus /></button>
+        <button disabled={botaoDesabilitado} onClick={multiplicacao}><FaTimes /></button>
+        <button disabled={botaoDesabilitado} onClick={divisao}><FaDivide /></button>
+        <button disabled={botaoLimparDesabilitado} onClick={limpar}><FaC /></button>
       </section>
       
   </main>
