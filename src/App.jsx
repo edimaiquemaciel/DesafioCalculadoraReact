@@ -13,7 +13,7 @@ function App() {
 
   const botaoDesabilitado = primeiroValor === '' || segundoValor === '';
   const botaoLimparDesabilitado = primeiroValor === '' && segundoValor === '';
-  const habilitaFuncao = primeiroValor !== '' && segundoValor !== '';
+  const habilitaFuncao = primeiroValor !== '' || segundoValor !== '' || resultado !== "";
 
 
   const soma = () => {
@@ -58,7 +58,7 @@ function App() {
     };
 
   const limpar = () =>{
-    if(habilitaFuncao || resultado ){
+    if(habilitaFuncao){
       setResultado(0);
       setPrimeiroValor("");
       setSegundoValor("");
